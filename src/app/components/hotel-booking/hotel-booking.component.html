@@ -1,0 +1,73 @@
+<!-- Botón de configuraciones -->
+<div class="dropdown mt-5">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    <i class="fas fa-cog"></i> Configuraciones
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <!-- Íconos para CRUD -->
+    <!-- <li><a class="dropdown-item" ><i class="fas fa-plus-circle"></i> Crear</a></li>-->
+    <li><a class="dropdown-item" ><i class="fas fa-eye"></i> Ver mis datos</a></li>
+    <li><a class="dropdown-item" ><i class="fas fa-edit"></i> Editar mi cuenta</a></li>
+     <li><a class="dropdown-item" href="#" (click)="deleteAccount()"><i class="fas fa-trash-alt"></i> Eliminar mi cuenta</a></li>
+  </ul>
+</div>
+
+
+<div class="container">
+  <!-- Mensaje de bienvenida -->
+  <div *ngIf="userEmail" class="alert alert-success mt-3" role="alert">
+    <p>Bienvenido a DreamStay,<strong style="color: #a17549;"> {{ userEmail }}</strong>!</p>
+  </div>
+
+  <div class="reservation-container">
+    <h1 class="display-4">Reservación de hoteles <strong>DreamStay</strong></h1>
+    <p class="lead">Elija las fechas deseadas y el tipo de habitación para hacer una reserva.</p>
+    <!-- Reservation form goes here -->
+  </div>
+
+  <div class="gallery-container">
+    <h2 class="mt-5">Destinos</h2>
+    <!-- Mini gallery goes here -->
+    <div class="row">
+      <div class="col-md-4">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/e5/08/dc/deluxe-king.jpg?w=300&h=-1&s=1"
+          alt="Deluxe King" class="img-fluid">
+      </div>
+      <div class="col-md-4">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/58/ee/65/go-quito-hotel.jpg?w=300&h=-1&s=1"
+          alt="Go Quito Hotel" class="img-fluid">
+      </div>
+      <div class="col-md-4">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/29/8c/69/signature-king.jpg?w=300&h=-1&s=1"
+          alt="Signature King" class="img-fluid">
+      </div>
+    </div>
+  </div>
+
+  <div class="info-container">
+    <h2 class="mt-5">Información</h2>
+    <!-- Information section goes here -->
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Ubicación</h4>
+        <p>En DreamStay encontraras las mejores ubicaciones de hoteles.</p>
+      </div>
+      <div class="col-md-6">
+        <h4>Comodidades</h4>
+        <ul>
+          <li>Piscinas</li>
+          <li>Spa y centro de bienestar</li>
+          <li>Restaurantes y bar</li>
+          <li>Servicos de habitaciones las 24 horas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarNav"></div> -->
