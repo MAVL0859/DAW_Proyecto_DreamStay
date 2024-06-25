@@ -13,6 +13,8 @@ import { HotelBookingComponent } from './components/hotel-booking/hotel-booking.
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faPlusCircle, faEye, faEdit, faTrashAlt, faCog } from '@fortawesome/free-solid-svg-icons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -20,13 +22,15 @@ import { faPlusCircle, faEye, faEdit, faTrashAlt, faCog } from '@fortawesome/fre
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HotelBookingComponent,
+    HotelBookingComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     provideHttpClient() // RECORDAR ESTO: Agregar provideHttpClient() como proveedor

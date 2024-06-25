@@ -42,13 +42,7 @@ export class LoginComponent {
           this.isSuccess = true;
           const email = this.loginForm.value.email; //Aquí extraemos el 'email'
 
-          // Mensaje de éxito visible por 2 segundos
-          setTimeout(() => {
-            this.responseMessage = '';
-            this.isSuccess = null;
-            this.loginForm.reset(); // Limpiar el formulario
-            this.router.navigate(['/hotel-booking', email]); //ruta par redirigir luego del inicio de seción existoso
-          }, 2000);
+          this.router.navigate(['/hotel-booking', email], {replaceUrl: true}); //ruta par redirigir luego del inicio de seción existoso
         },
         error: error => {
           // muestra un mensaje de error en consola
@@ -60,7 +54,7 @@ export class LoginComponent {
           setTimeout(() => {
             this.responseMessage = '';
             this.isSuccess = null;
-          }, 5000);
+          }, 3000);
         }
       });
     }else {

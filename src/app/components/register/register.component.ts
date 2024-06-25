@@ -27,7 +27,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.dataService.register(this.registerForm.value).subscribe({
         next: response => {
-          console.log('Datos enviados correctamente', response);
+          console.log('Registro de la cuenta éxitoso', response);
           this.responseMessage = response.message;
           this.isSuccess = true;
 
@@ -35,12 +35,19 @@ export class RegisterComponent {
             this.responseMessage = '';
             this.isSuccess = null;
             this.registerForm.reset();
-            this.router.navigate(['./login']);
+            this.router.navigate(['./login'], {replaceUrl: true});
           }, 2000);
         },
         error: error => {
           console.error('Error al enviar datos', error);
-          this.responseMessage = 'Error al enviar los datos';
+
+          // Maneja el caso donde el correo electrónico ya está registrado
+          if (error.status === 400 && error.error.error === 'El correo electrónico ya está registrado') {
+            this.responseMessage = 'El correo electrónico ya está registrado';
+          } else {
+            this.responseMessage = 'Error al enviar los datos';
+          }
+
           this.isSuccess = false;
 
           setTimeout(() => {
@@ -48,7 +55,7 @@ export class RegisterComponent {
             this.isSuccess = null;
           }, 5000);
         }
-      })
+      });
     } else {
       this.registerForm.markAllAsTouched();
       this.responseMessage = 'Completar todos los campos';

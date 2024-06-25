@@ -30,39 +30,52 @@ db.connect(err => {
   console.log('Conectado a la base de datos MySQL.');
 });
 
-
 // Endpoint para manejar los datos enviados desde el frontend "Registro"
 app.post('/register', (req, res) => {
   const { name, lastname, email, password, phonenumber } = req.body;
 
-  // salt y cifrado de la contraseña
-  bcrypt.genSalt(10, (err, salt) => {
+  // Primero, verifica si el correo electrónico ya existe en la base de datos
+  const checkEmailQuery = 'SELECT * FROM registerform WHERE email = ?';
+  db.query(checkEmailQuery, [email], (err, results) => {
     if (err) {
-      console.error('Error generando el salt:', err);
-      res.status(500).json({ error: 'Error generando el salt' });
+      console.error('Error al verificar el correo electrónico:', err);
+      res.status(500).json({ error: 'Error en la verificación del correo electrónico' });
       return;
     }
 
-    bcrypt.hash(password, salt, (err, hashedPassword) => {
+    if (results.length > 0) {
+      // Si el correo electrónico ya existe, envía una respuesta de error
+      res.status(400).json({ error: 'El correo electrónico ya está registrado' });
+      return;
+    }
+
+    // Si el correo electrónico no existe, continúa con el registro
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) {
-        console.error('Error cifrando la contraseña:', err);
-        res.status(500).json({ error: 'Error cifrando la contraseña' });
+        console.error('Error generando el salt:', err);
+        res.status(500).json({ error: 'Error generando el salt' });
         return;
       }
 
-      const query = 'INSERT INTO registerform (name, lastname, email, password, phonenumber) VALUES (?, ?, ?, ?, ?)';
-      db.query(query, [name, lastname, email, hashedPassword, phonenumber], (err, result) => {
+      bcrypt.hash(password, salt, (err, hashedPassword) => {
         if (err) {
-          console.error('Error al insertar datos:', err);
-          res.status(500).json({ error: 'Error en la inserción de datos' });
+          console.error('Error cifrando la contraseña:', err);
+          res.status(500).json({ error: 'Error cifrando la contraseña' });
           return;
         }
 
-        // Respuesta con mensaje estructurado y mensaje de texto
-        console.log('Datos insertados correctamente:', result); //Este es para poder verlo aquí en el VSCode
-        res.status(200).json({ message: 'Datos insertados y guardados', result }); //Este para la consola
-        // o
-        // res.send('Datos insertados y guardados'); sisrve si es que solo se van a enviar texto palno, en este caso el de  .json es el recomendable
+        const insertQuery = 'INSERT INTO registerform (name, lastname, email, password, phonenumber) VALUES (?, ?, ?, ?, ?)';
+        db.query(insertQuery, [name, lastname, email, hashedPassword, phonenumber], (err, result) => {
+          if (err) {
+            console.error('Error al insertar datos:', err);
+            res.status(500).json({ error: 'Error en la inserción de datos' });
+            return;
+          }
+
+          // Respuesta con mensaje estructurado y mensaje de texto
+          console.log('Datos insertados correctamente:', result);
+          res.status(200).json({ message: 'Datos insertados y guardados', result });
+        });
       });
     });
   });
@@ -126,8 +139,52 @@ app.delete('/delete-account', (req, res) => {
   });
 });
 
+// Endpoint para obtener datos del usuario
+app.get('/user-details', (req, res) => {
+  const email = req.query.email; // Obtener el email de la consulta
 
+  const query = 'SELECT name, lastname, email, phonenumber FROM registerform WHERE email = ?';
+  db.query(query, [email], (err, results) => {
+    if (err) {
+      console.error('Error al obtener los datos del usuario:', err);
+      res.status(500).json({ error: 'Error al obtener los datos del usuario' });
+      return;
+    }
 
+    if (results.length === 0) {
+      res.status(404).json({ error: 'Usuario no encontrado' });
+      return;
+    }
+
+    res.status(200).json(results[0]);
+  });
+});
+
+// Endpoint para actualizar los datos del usuario
+app.put('/update-user', (req, res) => {
+  const { name, lastname, email, phonenumber } = req.body;
+
+  const query = 'UPDATE registerform SET name = ?, lastname = ?, phonenumber = ? WHERE email = ?';
+  db.query(query, [name, lastname, phonenumber, email], (err, result) => {
+    if (err) {
+      console.error('Error al actualizar los datos del usuario:', err);
+      res.status(500).json({ error: 'Error al actualizar los datos del usuario' });
+      return;
+    }
+
+    if (result.affectedRows === 0) {
+      res.status(404).json({ error: 'Usuario no encontrado' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Datos del usuario actualizados correctamente' });
+  });
+});
+
+// Endpoint para cerrar sesión
+app.post('/logout', (req, res) => {
+  res.status(200).json({ message: 'Sesión cerrada correctamente' });
+});
 
 // Ruta para la página principal
 app.get('/', (req, res) => {
@@ -144,22 +201,4 @@ app.listen(port, () => {
   console.log(`Servidor corriendo en: http://localhost:${port}`);
 });
 
-/*Endpoint para manejar los datos enviados desde el frontend, hay que revisar el archivo data.service.ts
-app.post('/endpoint', (req, res) => {
-  const { username, password } = req.body;
-  const query = 'INSERT INTO users (username, password) VALUES (?, ?)';
 
-  db.query(query, [username, password], (err, result) => {
-    if (err) {
-      console.error('Error al insertar datos: ', err);
-      res.status(500).json({ error: 'Error en la inserción de datos' });
-      return;
-    }
-
-    // Respuesta con mensaje estructurado y mensaje de texto
-    console.log('Datos insertados correctamente:', result); //Este es para poder verlo aquí en el VSCode
-    res.status(200).json({ message: 'Datos insertados y guardados', result }); //Este para la consola
-    // o
-    // res.send('Datos insertados y guardados'); sisrve si es que solo se van a enviar texto palno, en este caso el de  .json es el recomendable
-  });
-});*/
