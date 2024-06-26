@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http'; // Importar provideHttpClient porque HttpClienModule en angular 18 está en desuso
+import { provideHttpClient, withFetch } from '@angular/common/http'; // Importar provideHttpClient porque HttpClienModule en angular 18 está en desuso
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -33,12 +33,15 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   providers: [
-    provideHttpClient() // RECORDAR ESTO: Agregar provideHttpClient() como proveedor
+    provideHttpClient(withFetch()) // RECORDAR ESTO: Agregar provideHttpClient() como proveedor
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(library: FaIconLibrary) {
+  //Este constructor era para eligir iconos aleatorios(solo los de la lista)
+  //Actualmente no se está usando
+  /*constructor(library: FaIconLibrary) {
     library.addIcons(faPlusCircle, faEye, faEdit, faTrashAlt, faCog);
   }
+  */
  }

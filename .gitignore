@@ -43,3 +43,6 @@ Thumbs.db
 
 # Ignorar archivo .env
 .env
+
+#Ignorar archivo package-lock.json
+
