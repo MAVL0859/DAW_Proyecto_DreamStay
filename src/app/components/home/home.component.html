@@ -1,0 +1,167 @@
+<!-- FontAwesome CDN Link -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- Google Fonts - Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+  rel="stylesheet">
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #304062;">
+  <!-- Navbar content -->
+  <div class="container">
+    <a class="navbar-brand" href="../home">
+      <h1 style="color: white;">DreamStay</h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" (click)="openLoginDialog()" style="color: white; padding-right: 25px">
+            <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="openRegisterDialog()" style="color: white; padding-right: 25px">
+            <i class="fas fa-user-plus"></i> Registrarse
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="banner" style="margin-bottom: 20px;">
+  <img
+    src="https://denomades.s3.us-west-2.amazonaws.com/blog/wp-content/uploads/2020/03/12005532/112830_5e208aebf2df4.jpg"
+    alt="Banner" class="banner-img">
+
+  <div class="banner-text">
+    <div class="container">
+      <form class="reservation-form row g-2">
+        <div class="col-12 col-md-4">
+          <label for="destino" class="sr-only">Destino</label>
+          <div class="input-group mb-2">
+            <span class="mx-2"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control rounded" id="destino"
+              placeholder="Ciudad, aeropuerto, atracción o dirección">
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <label for="entrada" class="sr-only">Entrada</label>
+          <div class="input-group mb-2">
+            <input type="date" class="form-control rounded" id="entrada" name="entrada" [(ngModel)]="entrada" [min]="minDate">
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <label for="salida" class="sr-only">Salida</label>
+          <div class="input-group mb-2">
+            <input style="width: auto;" type="date" class="form-control rounded" id="salida" name="salida" [(ngModel)]="salida"
+              [min]="entrada | date: 'yyyy-MM-dd'">
+          </div>
+        </div>
+        <div class="col-12 col-md-2">
+          <button type="button" class="btn btn-primary">Vamos</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div><br>
+
+
+<div class="section">
+  <div class="container text-center justify-content-center">
+    <h2 class="mb-5">DreamStay para cada ocasión</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-3">
+        <div class="icon">
+          <i class="fas fa-glass-martini-alt"></i>
+        </div>
+        <div class="description">
+          <p>La Happy Hour nunca dura solo una hora. Desde hoteles básicos a lujosos, reserva donde te lleve la noche.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="description">
+          <p>Ahórrate el viaje. Con ofertas así, que el tráfico lo aguante otro.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="icon">
+          <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <div class="description">
+          <p>Aprovechemos los tres días de fiesta. Consigue escapadas de fin de semana en tus ciudades preferidas.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="description">
+          <p>Empieza a tachar tu lista de destinos. Reserva con antelación. Cero estrés.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="info-container">
+  <h2 class="mt-5 text-center">Los destinos más populares para tus próximas vacaciones</h2><br>
+  <div class="row justify-content-center">
+    <div class="col-md-4" *ngFor="let destino of destinos">
+      <div class="destino-card card mb-4">
+        <img [src]="destino.img" [alt]="destino.nombre" class="card-img-top">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ destino.nombre }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="section__container footer__container">
+    <div class="footer__col">
+      <h3>DreamStay</h3>
+      <p>
+        DreamStay es un sitio web de reservas de hoteles de primera categoría que ofrece una forma sencilla y
+        conveniente de encontrar y reservar alojamientos en todo el mundo.
+      </p>
+      <p>
+        Con una interfaz fácil de usar y una amplia selección de hoteles, DreamStay tiene como objetivo proporcionar
+        una experiencia sin estrés para los viajeros que buscan la estadía perfecta.
+      </p>
+    </div>
+    <div class="footer__col">
+      <h4>Empresa</h4>
+      <p>Sobre nosotros</p>
+      <p>Nuestro equipo</p>
+      <p>Blog</p>
+      <p>Reservar</p>
+      <p>Contáctanos</p>
+    </div>
+    <div class="footer__col">
+      <h4>Legal</h4>
+      <p>Preguntas frecuentes</p>
+      <p>Términos y condiciones</p>
+      <p>Política de privacidad</p>
+    </div>
+    <div class="footer__col">
+      <h4>Recursos</h4>
+      <p>Redes sociales</p>
+      <p>Centro de ayuda</p>
+      <p>Asociaciones</p>
+    </div>
+  </div>
+  <div class="footer__bar">
+    Derechos de autor © 2024 Desarrollo De Aplicaciones Web. Todos los derechos reservados.
+  </div>
+</footer>
+</body>

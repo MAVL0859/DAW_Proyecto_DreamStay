@@ -8,13 +8,21 @@ import { provideHttpClient, withFetch } from '@angular/common/http'; // Importar
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HotelBookingComponent } from './components/hotel-booking/hotel-booking.component';
+import { HomeComponent } from './components/home/home.component';
 
-// Import FontAwesome
+import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faPlusCircle, faEye, faEdit, faTrashAlt, faCog } from '@fortawesome/free-solid-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+
+
 
 
 @NgModule({
@@ -22,26 +30,29 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HotelBookingComponent
+    HotelBookingComponent,
+    HomeComponent,
   ],
   imports: [
+    FontAwesomeModule,
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    FontAwesomeModule,
     BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    CommonModule,
     ToastrModule.forRoot()
   ],
   providers: [
-    provideHttpClient(withFetch()) // RECORDAR ESTO: Agregar provideHttpClient() como proveedor
+    provideHttpClient(withFetch()),
+    provideAnimationsAsync() // RECORDAR ESTO: Agregar provideHttpClient() como proveedor
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  //Este constructor era para eligir iconos aleatorios(solo los de la lista)
-  //Actualmente no se está usando
-  /*constructor(library: FaIconLibrary) {
-    library.addIcons(faPlusCircle, faEye, faEdit, faTrashAlt, faCog);
-  }
-  */
- }
+export class AppModule {}
+

@@ -2,8 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql2');
-const bcrypt = require('bcrypt'); //Esta es para el cifrado de contraseñas
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
+/**
+ * Express application instance.
+ * @type {import('express').Express}
+ */
 const app = express();
 const port = 3000;
 
@@ -15,6 +20,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Configurar la conexión a la base de datos MySQL
+/**
+ * The database connection object.
+ *
+ * @type {mysql.Connection}
+ */
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -34,7 +44,7 @@ db.connect(err => {
 app.post('/register', (req, res) => {
   const { name, lastname, email, password, phonenumber } = req.body;
 
-  // Primero, verifica si el correo electrónico ya existe en la base de datos
+  // Primero, verificamos si el correo electrónico ya existe en la base de datos
   const checkEmailQuery = 'SELECT * FROM registerform WHERE email = ?';
   db.query(checkEmailQuery, [email], (err, results) => {
     if (err) {
@@ -45,7 +55,7 @@ app.post('/register', (req, res) => {
 
     if (results.length > 0) {
       // Si el correo electrónico ya existe, envía una respuesta de error
-      res.status(400).json({ error: 'El correo electrónico ya está registrado' });
+      res.status(400).json({ error: 'Correo electrónico yá registrado' });
       return;
     }
 
@@ -73,15 +83,15 @@ app.post('/register', (req, res) => {
           }
 
           // Respuesta con mensaje estructurado y mensaje de texto
-          console.log('Datos insertados correctamente:', result);
-          res.status(200).json({ message: 'Datos insertados y guardados', result });
+          console.log('La cuenta ha sido creada correctamente', result);
+          res.status(200).json({ message: 'La cuenta ha sido creada correctamente', result });
         });
       });
     });
   });
 });
 
-// Endpoint para el "login" si es que el usaurio se ha registrado previamente
+// Endpoint para el "login" si es que el usuario se ha registrado previamente
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -94,7 +104,7 @@ app.post('/login', (req, res) => {
     }
 
     if (results.length === 0) {
-      res.status(401).json({ error: 'Usuario no encontrado. Regístrese antes de iniciar sesión' });
+      res.status(401).json({ error: '¡Ups! Cuenta no registrada. ¡Crea una cuenta ahora!' });
       return;
     }
 
@@ -107,10 +117,12 @@ app.post('/login', (req, res) => {
         return;
       }
 
-      // console.log('¿Las contraseñas coinciden?', isMatch);
-
       if (isMatch) {
-        res.status(200).json({ message: 'Inicio de sesión exitoso' });
+        // generamos un token JWT para cada usuario
+        const token = jwt.sign({ email }, 'marlon2004', { expiresIn: '1h' });
+
+        // Respuesta con el token JWT
+        res.status(200).json({ message: 'Iniciando sesión', token });
       } else {
         res.status(401).json({ error: 'Contraseña incorrecta' });
       }

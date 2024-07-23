@@ -1,0 +1,36 @@
+.navbar{
+  border-radius: 0px 0px 15px 15px;
+}
+
+.overlyde{
+  top: 0;
+}
+
+/* Definir tamaños de letra generales */
+h1 {
+  font-size: 2.5rem; /* Tamaño de letra para h1 */
+}
+
+h2 {
+  font-size: 2rem; /* Tamaño de letra para h2 */
+}
+
+h3 {
+  font-size: 1.75rem; /* Tamaño de letra para h3 */
+}
+
+h4 {
+  font-size: 1.5rem; /* Tamaño de letra para h4 */
+}
+
+h5 {
+  font-size: 1.25rem; /* Tamaño de letra para h5 */
+}
+
+h6 {
+  font-size: 1rem; /* Tamaño de letra para h6 */
+}
+
+p, a, li {
+  font-size: 1rem; /* Tamaño de letra para párrafos, enlaces y elementos de lista */
+}

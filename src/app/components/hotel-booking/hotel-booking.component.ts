@@ -35,6 +35,8 @@ export class HotelBookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Acceder a los parametros de la ruta actual "this.userEmail = this.route.snapshot.paramMap"
+    // .get('email') ?? ''; Intentamos obtener el valor de 'email' de la ruta actual, si no hay valor, se establece en una cadena vacía.
     this.userEmail = this.route.snapshot.paramMap.get('email') ?? '';
 
     // Para obtener solo la parte antes del @
@@ -250,7 +252,7 @@ export class HotelBookingComponent implements OnInit {
         this.showNotification('Cerrando sesión', 'success');
         this.clearUserData();
         setTimeout(() => {
-          this.router.navigate(['/login'], { replaceUrl: true });
+          this.router.navigate(['/home'], { replaceUrl: true });
         }, 2000);
       },
       error: error => {

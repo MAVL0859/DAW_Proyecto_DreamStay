@@ -1,58 +1,44 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header text-center">
-          <h3>Registro</h3>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <div class="form-group mb-3">
-              <label for="name" class="form-label">Nombre:</label>
-              <input id="name" type="text" formControlName="name" class="form-control" placeholder="Ingresa tu nombre" required>
-              <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)" class="text-danger alert alert-warning custom-alert">
-                Campo requerido
-              </div>
-            </div>
-            <div class="form-group mb-3">
-              <label for="lastname" class="form-label">Apellido:</label>
-              <input id="lastname" type="text" formControlName="lastname" class="form-control" placeholder="Ingresa tu apellido" required>
-              <div *ngIf="registerForm.get('lastname')?.invalid && (registerForm.get('lastname')?.dirty || registerForm.get('lastname')?.touched)" class="text-danger alert alert-warning custom-alert">
-                Campo requerido
-              </div>
-            </div>
-            <div class="form-group mb-3">
-              <label for="email" class="form-label">Email:</label>
-              <input id="email" type="email" formControlName="email" class="form-control" placeholder="Ingresa tu email" required>
-              <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" class="text-danger alert alert-warning custom-alert">
-                Campo requerido
-              </div>
-            </div>
-            <div class="form-group mb-3">
-              <label for="password" class="form-label">Contraseña:</label>
-              <input id="password" type="password" formControlName="password" class="form-control" placeholder="Ingresa tu contraseña" required>
-              <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" class="text-danger alert alert-warning custom-alert">
-                Campo requerido
-              </div>
-            </div>
-            <div class="form-group mb-3">
-              <label for="phonenumber" class="form-label">Número de teléfono:</label>
-              <input id="phonenumber" type="text" formControlName="phonenumber" class="form-control" placeholder="Ingresa tu número de teléfono">
-            </div>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">Registrarse</button>
-            </div>
-          </form>
 
-          <!-- Para los mensajes de éxito o error en el envío a la BD-->
-          <div *ngIf="isSuccess === true" class="alert alert-success mt-3" role="alert">
-            {{ responseMessage }}
-          </div>
-          <div *ngIf="isSuccess === false" class="alert alert-danger mt-3" role="alert">
-            {{ responseMessage }}
-          </div>
-        </div>
+<div class="body">
+  <div class="box">
+    <span class="borderline"></span>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>Registro</h2>
+      <!-- Para los mensajes de éxito o error en el envio a la BD-->
+      <div *ngIf="responseMessage" [class]="isSuccess ? 'alert alert-success' : 'alert alert-danger'">
+        {{ responseMessage }}
       </div>
-    </div>
+      <div class="inputBox">
+        <input id="name" type="text" formControlName="name" required="required">
+        <span>Nombre</span>
+        <i></i>
+      </div>
+      <div class="inputBox">
+        <input id="lastname" type="text" formControlName="lastname" required="required">
+        <span>Apellido</span>
+        <i></i>
+      </div>
+      <div class="inputBox">
+        <input id="email" type="text" formControlName="email" required="required">
+        <span>Correo electrónico</span>
+        <i></i>
+      </div>
+      <div class="inputBox">
+        <input id="password" type="password" formControlName="password" required="required">
+        <span>Contraseña</span>
+        <i></i>
+      </div>
+      <div class="inputBox">
+        <input id="phonenumber" type="tel" formControlName="phonenumber" required="required" maxlength="10">
+        <span>Número de teléfono</span>
+        <i></i>
+      </div>
+      <div class="links">
+        <a>¿Ya tienes cuenta?</a>
+        <a (click)="openLoginDialog()">Iniciar Sesión</a>
+      </div>
+      <input type="submit" value="Registrarme">
+    </form>
   </div>
 </div>
+

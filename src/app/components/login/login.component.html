@@ -1,41 +1,30 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header text-center">
-          <h3>Iniciar Sesión</h3>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="form-group mb-3">
-              <label for="email" class="form-label">Email:</label>
-              <input id="email" type="email" formControlName="email" class="form-control" placeholder="Ingresa tu correo electrónico" required>
-              <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="text-danger alert alert-warning custom-alert">
-                Correo electrónico es requerido
-              </div>
-            </div>
-            <div class="form-group mb-3">
-              <label for="password" class="form-label">Contraseña:</label>
-              <input id="password" type="password" formControlName="password" class="form-control" placeholder="Ingresa tu contraseña" required>
-              <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-danger alert alert-warning custom-alert">
-               Contraseña es requerida
-              </div>
-            </div>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">Ingresar</button>
-            </div>
-          </form>
 
-          <!-- Para los mensajes de éxito o error en el envio a la BD-->
-          <div *ngIf="responseMessage" [class]="isSuccess ? 'alert alert-success mt-3' : 'alert alert-danger mt-3'">
-            {{ responseMessage }}
-          </div>
-        </div>
+<div class="body">
+  <div class="box">
+    <span class="borderline"></span>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2>Inicio de sesión</h2>
+      <!-- Para los mensajes de éxito o error en el envio a la BD-->
+      <div *ngIf="responseMessage" [class]="isSuccess ? 'alert alert-success' : 'alert alert-danger'">
+        {{ responseMessage }}
       </div>
-    </div>
+      <div class="inputBox">
+        <input id="email" type="text" formControlName="email" required="required">
+        <span>Correo electrónico</span>
+        <i></i>
+      </div>
+      <div class="inputBox">
+        <input id="password" type="password" formControlName="password" required="required">
+        <span>Contraseña</span>
+        <i></i>
+      </div>
+      <div class="links">
+        <a>¿No tienes cuenta?</a>
+        <a (click)="openRegisterDialog()">Registrarme</a>
+      </div>
+      <input type="submit" value="Iniciar sesión">
+    </form>
   </div>
 </div>
-
-
 
 

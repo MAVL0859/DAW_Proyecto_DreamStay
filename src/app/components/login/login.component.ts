@@ -9,6 +9,9 @@ y luego se crea el archivo server.js, para evitar errores en carpetas es mejor d
 */
 //Importar router para la redirección luego de un inicio de sesión exitosp
 import { Router } from '@angular/router';
+import { RegisterComponent } from '../register/register.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-login',
@@ -22,7 +25,7 @@ export class LoginComponent {
   responseMessage: string = '';
   isSuccess: boolean | null = null;
 
-  constructor(private fb: FormBuilder, private dataService: DataService, private router: Router) {
+  constructor(private fb: FormBuilder, private dataService: DataService, private router: Router, private dialog: MatDialog, private dialogRef: MatDialogRef<LoginComponent>) {
     this.loginForm = this.fb.group({
       // Definimos nuestros parametros o atributos cómo string vacíos
       email: ['', [Validators.required, Validators.email]],
@@ -42,7 +45,12 @@ export class LoginComponent {
           this.isSuccess = true;
           const email = this.loginForm.value.email; //Aquí extraemos el 'email'
 
-          this.router.navigate(['/hotel-booking', email], {replaceUrl: true}); //ruta par redirigir luego del inicio de seción existoso
+          setTimeout(() => {
+            this.responseMessage = '';
+            this.isSuccess = null;
+            this.dialogRef.close();
+            this.router.navigate(['/hotel-booking', email], {replaceUrl: true}); //ruta par redirigir luego del inicio de seción existoso
+          }, 3000);
         },
         error: error => {
           // muestra un mensaje de error en consola
@@ -70,6 +78,14 @@ export class LoginComponent {
       }, 3000);
     }
   }
+
+  openRegisterDialog(): void {
+    this.dialogRef.close();
+    this.dialog.open(RegisterComponent, {
+      width: 'auto'
+    });
+  }
+
 }
 
 
@@ -95,3 +111,4 @@ export class LoginComponent {
     alert("Inicio de sesión con Apple");
   }
 } */
+
