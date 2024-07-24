@@ -259,10 +259,12 @@ p, a, li {
   font-weight: 600;
   width: 120px;
   margin-top: 10px;
+  border: 5px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
-.box form input[type="submit"]:active {
-  opacity: 0.8;
+.box form input[type="submit"]:hover {
+  border-color: #4D839F;
 }
 
 .box form .inputBox input:-webkit-autofill {
