@@ -36,6 +36,15 @@ p, a, li {
   font-size: 1rem; /* Tamaño de letra para párrafos, enlaces y elementos de lista */
 }
 
+.links a:nth-child(2){
+  -webkit-text-fill-color: transparent;
+  -moz-text-stroke-width: 1px;
+  -webkit-text-stroke-width: 1px;
+  -moz-text-stroke-color: #000000;
+  -webkit-text-stroke-color: #D5EBE7;
+  cursor: pointer;
+}
+
 .body {
   display: flex;
   justify-content: center;

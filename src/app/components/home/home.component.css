@@ -87,10 +87,10 @@ p, a, li {
 
 .banner-text {
   position: absolute;
-  top: 80%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.637);
+  background-color: rgba(0, 0, 0, 0.700);
   padding: 20px;
   border-radius: 8px;
   width: 80%;
@@ -99,11 +99,16 @@ p, a, li {
 
 .banner h2 {
   font-size: 1.5em;
-  margin-bottom: 10px;
 }
 
 .banner p {
-  font-size: 0.5em;
+  font-size: 1.2em;
+  color: #ffffff;
+}
+
+.banner h1 {
+  font-size: 2.5em;
+  margin-bottom: 0%;
 }
 
 .banner .btn {

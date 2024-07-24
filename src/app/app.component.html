@@ -1,3 +1,30 @@
+ <!-- Contenido del navbar-->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #304062;">
 
+  <div class="container">
+    <a class="navbar-brand" href="../home">
+      <h1 style="color: white;">DreamStay</h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" (click)="openLoginDialog()" style="color: white; padding-right: 25px; cursor: pointer;">
+            <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="openRegisterDialog()" style="color: white; padding-right: 25px; cursor: pointer;">
+            <i class="fas fa-user-plus"></i> Registrarse
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <router-outlet></router-outlet>
 

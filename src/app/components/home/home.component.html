@@ -5,8 +5,9 @@
   rel="stylesheet">
 
 <body>
+  <!-- Contenido del navbar
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #304062;">
-  <!-- Navbar content -->
+
   <div class="container">
     <a class="navbar-brand" href="../home">
       <h1 style="color: white;">DreamStay</h1>
@@ -32,6 +33,7 @@
     </div>
   </div>
 </nav>
+-->
 
 <div class="banner" style="margin-bottom: 20px;">
   <img
@@ -39,9 +41,10 @@
     alt="Banner" class="banner-img">
 
   <div class="banner-text">
+    <h1>Disfruta de maravillos destinos</h1><p>Ahorra tiempo y dinero reservando con antelación</p>
     <div class="container">
       <form class="reservation-form row g-2">
-        <div class="col-12 col-md-4">
+        <div class="col">
           <label for="destino" class="sr-only">Destino</label>
           <div class="input-group mb-2">
             <span class="mx-2"><i class="fas fa-search"></i></span>
@@ -49,19 +52,7 @@
               placeholder="Ciudad, aeropuerto, atracción o dirección">
           </div>
         </div>
-        <div class="col-12 col-md-3">
-          <label for="entrada" class="sr-only">Entrada</label>
-          <div class="input-group mb-2">
-            <input type="date" class="form-control rounded" id="entrada" name="entrada" [(ngModel)]="entrada" [min]="minDate">
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <label for="salida" class="sr-only">Salida</label>
-          <div class="input-group mb-2">
-            <input style="width: auto;" type="date" class="form-control rounded" id="salida" name="salida" [(ngModel)]="salida"
-              [min]="entrada | date: 'yyyy-MM-dd'">
-          </div>
-        </div>
+
         <div class="col-12 col-md-2">
           <button type="button" class="btn btn-primary">Vamos</button>
         </div>

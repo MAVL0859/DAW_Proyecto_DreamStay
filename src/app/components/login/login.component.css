@@ -38,13 +38,22 @@ h6 {
 }
 
 p, a, li {
-  font-size: 1rem; /* Tamaño de letra para párrafos, enlaces y elementos de lista */
+  font-size: 2rem; /* Tamaño de letra para párrafos, enlaces y elementos de lista */
+}
+
+.links a:nth-child(2){
+  -webkit-text-fill-color: transparent;
+  -moz-text-stroke-width: 1px;
+  -webkit-text-stroke-width: 1px;
+  -moz-text-stroke-color: #000000;
+  -webkit-text-stroke-color: #D5EBE7;
+  cursor: pointer;
 }
 
 .box {
   position: relative;
   width: 400px;
-  height: 450px;
+  height: 470px;
   background: #304062;
   border-radius: 8px;
   overflow: hidden;
@@ -56,7 +65,7 @@ p, a, li {
   top: -50%;
   left: -50%;
   width: 400px;
-  height: 450px;
+  height: 470px;
   background: linear-gradient(0deg, transparent, transparent, #5effd4, #5effd4, #5effd4);
   z-index: 1;
   transform-origin: bottom right;
@@ -69,7 +78,7 @@ p, a, li {
   top: -50%;
   left: -50%;
   width: 400px;
-  height: 450px;
+  height: 470px;
   background: linear-gradient(0deg, transparent, transparent, #5effd4, #5effd4, #5effd4);
   z-index: 1;
   transform-origin: bottom right;
@@ -89,7 +98,7 @@ p, a, li {
   top: -50%;
   left: -50%;
   width: 400px;
-  height: 450px;
+  height: 470px;
   background: linear-gradient(0deg, transparent, transparent, #035bf6, #035bf6, #035bf6);
   z-index: 1;
   transform-origin: bottom right;
@@ -103,7 +112,7 @@ p, a, li {
   top: -50%;
   left: -50%;
   width: 400px;
-  height: 450px;
+  height: 470px;
   background: linear-gradient(0deg, transparent, transparent, #035bf6, #035bf6, #035bf6);
   z-index: 1;
   transform-origin: bottom right;
@@ -131,6 +140,7 @@ p, a, li {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 0%;
 }
 
 .box form {
@@ -149,6 +159,7 @@ p, a, li {
   font-weight: 500;
   text-align: center;
   letter-spacing: 0.1em;
+  margin: 0;
 }
 
 .box form .inputBox {
@@ -236,7 +247,7 @@ p, a, li {
 .box form input[type="submit"] {
   border: none;
   outline: none;
-  padding: 10px 15px;
+  padding: 10px 10px 5px 5px;
   background: #fff;
   cursor: pointer;
   font-size: 0.9em;
@@ -244,10 +255,12 @@ p, a, li {
   font-weight: 600;
   width: 120px;
   margin-top: 10px;
+  border: 5px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
-.box form input[type="submit"]:active {
-  opacity: 0.8;
+.box form input[type="submit"]:hover {
+  border-color: #4D839F;
 }
 
 .box form .inputBox input:-webkit-autofill {

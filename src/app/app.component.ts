@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'App-ReservaHotel-DreamStay';
+
+  constructor(private router: Router, private dialog: MatDialog){}
+
+  openLoginDialog(): void {
+    this.dialog.open(LoginComponent, {
+      width: 'auto'
+    });
+  }
+
+  openRegisterDialog(): void {
+    this.dialog.open(RegisterComponent, {
+      width: 'auto'
+    });
+  }
 }
