@@ -21,7 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -40,6 +40,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,

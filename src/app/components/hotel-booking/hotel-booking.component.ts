@@ -105,17 +105,17 @@ export class HotelBookingComponent implements OnInit {
   }
 
   deleteAccount() {
-    const email = this.route.snapshot.paramMap.get('email');
+    //const email = this.route.snapshot.paramMap.get('email');
 
-    if (email) {
+    //if (email) {
       this.dataService.deleteAccount().subscribe({
         next: response => {
           console.log('Cuenta eliminada correctamente', response);
           this.closeDeleteModal();
           this.showNotification('Cuenta eliminada correctamente', 'success');
-          this.clearUserData();
+          this.authService.logout();
           setTimeout(() => {
-            this.router.navigate(['/login'], { replaceUrl: true });
+            this.router.navigate(['/home'], { replaceUrl: true });
           }, 2000);
         },
         error: error => {
@@ -124,7 +124,7 @@ export class HotelBookingComponent implements OnInit {
           this.showNotification('Error al eliminar la cuenta', 'error');
         }
       });
-    }
+   // }
   }
 
   cancelDelete() {

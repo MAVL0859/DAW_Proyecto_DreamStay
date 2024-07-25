@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthService } from './services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'App-ReservaHotel-DreamStay';
 
-  constructor(private router: Router, private dialog: MatDialog, private authService: AuthService){}
+  constructor(private router: Router, private dialog: MatDialog, private authService: AuthService, private snackBar: MatSnackBar) { }
 
   openLoginDialog(): void {
     this.dialog.open(LoginComponent, {
@@ -33,6 +34,13 @@ export class AppComponent {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/home']), { replaceUrl: true };
+    this.snackBar.open('Sesión cerrada', 'Cerrar', {
+      duration: 2000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
+    setTimeout(() => {
+      this.router.navigate(['/home'], { replaceUrl: true });
+    }, 2000);
   }
 }
