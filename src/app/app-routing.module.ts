@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HotelBookingComponent } from './components/hotel-booking/hotel-booking.component';
-import{ HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'register', component: RegisterComponent
   },
   {
-    path: 'hotel-booking/:email', component: HotelBookingComponent
+    path: 'hotel-booking', component: HotelBookingComponent,
   },
   {
     path: 'home', component: HomeComponent

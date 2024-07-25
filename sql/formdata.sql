@@ -1,0 +1,25 @@
+CREATE DATABASE formdata;
+-- DROP SCHEMA formdata;
+
+USE formdata;
+
+CREATE TABLE registerForm(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  lastname VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  phonenumber VARCHAR(10)
+);
+
+CREATE TABLE hotels (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    imagePath VARCHAR(255) NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+SELECT * FROM registerForm;
+SELECT * FROM hotels;

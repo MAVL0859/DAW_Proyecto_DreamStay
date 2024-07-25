@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 //Modificaciones "Importar FormBuilder y FormGroup"
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DataService } from '../../data.service'; //Para esta ejecutar priemro "ng generate service data"
+import { DataService } from '../../services/data.service'; //Para esta ejecutar priemro "ng generate service data"
 /*Para expres los comandos son:
 npm init -y
 npm install express body-parser cors mysql2
@@ -11,6 +11,7 @@ y luego se crea el archivo server.js, para evitar errores en carpetas es mejor d
 import { Router } from '@angular/router';
 import { RegisterComponent } from '../register/register.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -25,9 +26,9 @@ export class LoginComponent {
   responseMessage: string = '';
   isSuccess: boolean | null = null;
 
-  constructor(private fb: FormBuilder, private dataService: DataService, private router: Router, private dialog: MatDialog, private dialogRef: MatDialogRef<LoginComponent>) {
+  constructor(private fb: FormBuilder, private dataService: DataService, private router: Router, private dialog: MatDialog, private dialogRef: MatDialogRef<LoginComponent>, private authService: AuthService) {
     this.loginForm = this.fb.group({
-      // Definimos nuestros parametros o atributos cómo string vacíos
+      // Definimos nuestros parametros o atributos cómo string vacíos y validamos que se encuentren con datos
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -37,24 +38,24 @@ export class LoginComponent {
     // revisar si el formulario es válido
     if (this.loginForm.valid) {
 
-      this.dataService.login(this.loginForm.value).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: response => {
           //respuesta
-          console.log('Data sent successfully', response);
+          console.log('El envio de datos se hizo con exito', response);
+          this.authService.setToken(response.token);
           this.responseMessage = response.message;
           this.isSuccess = true;
-          const email = this.loginForm.value.email; //Aquí extraemos el 'email'
 
           setTimeout(() => {
             this.responseMessage = '';
             this.isSuccess = null;
             this.dialogRef.close();
-            this.router.navigate(['/hotel-booking', email], {replaceUrl: true}); //ruta par redirigir luego del inicio de seción existoso
+            this.router.navigate(['/hotel-booking'], {replaceUrl: true}); //ruta par redirigir luego del inicio de seción existoso
           }, 3000);
         },
         error: error => {
           // muestra un mensaje de error en consola
-          console.error('Error sending data', error);
+          console.error('Error durante el envio de datos', error);
           this.responseMessage = error.error.error || 'Error al enviar los datos';
           this.isSuccess = false;
 

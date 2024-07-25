@@ -1,30 +1,78 @@
- <!-- Contenido del navbar-->
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #304062;">
-
+<!-- Contenido del navbar -->
+<nav
+  class="navbar navbar-expand-lg navbar-light"
+  style="background-color: #304062"
+>
   <div class="container">
     <a class="navbar-brand" href="../home">
-      <h1 style="color: white;">DreamStay</h1>
+      <h1 style="color: white">DreamStay</h1>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- Solo se muestra el botón de colapso si el usuario no está autenticado -->
+    <button
+      class="navbar-toggler"
+      *ngIf="!isAuthenticated()"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" (click)="openLoginDialog()" style="color: white; padding-right: 25px; cursor: pointer;">
+        <li class="nav-item" *ngIf="!isAuthenticated()">
+          <a
+            class="nav-link"
+            (click)="openLoginDialog()"
+            style="color: white; padding-right: 25px; cursor: pointer"
+          >
             <i class="fas fa-sign-in-alt"></i> Iniciar sesión
           </a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" (click)="openRegisterDialog()" style="color: white; padding-right: 25px; cursor: pointer;">
+        <li class="nav-item" *ngIf="!isAuthenticated()">
+          <a
+            class="nav-link"
+            (click)="openRegisterDialog()"
+            style="color: white; padding-right: 25px; cursor: pointer"
+          >
             <i class="fas fa-user-plus"></i> Registrarse
           </a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isAuthenticated()">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="color: white"
+          >
+            <i class="fas fa-user"></i> Mi Cuenta
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/profile">Perfil</a></li>
+            <li>
+              <a class="dropdown-item" href="/reservations">Reservaciones</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a
+                class="dropdown-item"
+                (click)="logout()"
+                style="cursor: pointer"
+                >Cerrar sesión</a
+              >
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<router-outlet></router-outlet>
 
+<router-outlet></router-outlet>

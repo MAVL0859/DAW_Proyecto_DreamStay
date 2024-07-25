@@ -143,6 +143,7 @@ p, a, li {
 .input-group {
   display: flex;
   align-items: center;
+  color: #0069d9;
 }
 
 .input-group-text {
@@ -159,6 +160,10 @@ p, a, li {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  background-image: url(https://www.w3schools.com/css/searchicon.png);
+  background-repeat: no-repeat;
+  background-position: 10px 13px;
+  padding-left: 40px;
 }
 
 .btn {

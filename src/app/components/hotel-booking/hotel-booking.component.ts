@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../../data.service';
+import { DataService } from '../../services/data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-hotel-booking',
@@ -12,12 +13,14 @@ export class HotelBookingComponent implements OnInit {
   userEmail: string = '';
   userDetailsForm: FormGroup;
   editUserForm: FormGroup;
+  userName: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dataService: DataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) {
     this.userDetailsForm = this.fb.group({
       name: [{ value: '', disabled: true }],
@@ -35,18 +38,14 @@ export class HotelBookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Acceder a los parametros de la ruta actual "this.userEmail = this.route.snapshot.paramMap"
-    // .get('email') ?? ''; Intentamos obtener el valor de 'email' de la ruta actual, si no hay valor, se establece en una cadena vacía.
-    this.userEmail = this.route.snapshot.paramMap.get('email') ?? '';
-
-    // Para obtener solo la parte antes del @
-    if (this.userEmail) {
-      this.userEmail = this.userEmail.split('@')[0];
+    const userInfo = this.authService.getUserInfo();
+    if (userInfo && userInfo.name) {
+      this.userName = userInfo.name;
     }
 
     // Ocultar el mensaje después de 5 segundos
     setTimeout(() => {
-      this.userEmail = '';
+      this.userName = '';
     }, 5000);
   }
 
@@ -109,7 +108,7 @@ export class HotelBookingComponent implements OnInit {
     const email = this.route.snapshot.paramMap.get('email');
 
     if (email) {
-      this.dataService.deleteAccount(email).subscribe({
+      this.dataService.deleteAccount().subscribe({
         next: response => {
           console.log('Cuenta eliminada correctamente', response);
           this.closeDeleteModal();
@@ -133,10 +132,10 @@ export class HotelBookingComponent implements OnInit {
   }
 
   openUserDetailsModal() {
-    const email = this.route.snapshot.paramMap.get('email');
+    //const email = this.route.snapshot.paramMap.get('email');
 
-    if (email) {
-      this.dataService.getUserDetails(email).subscribe({
+    //if (email) {
+      this.dataService.getUserDetails().subscribe({
         next: userDetails => {
           this.userDetailsForm.setValue({
             name: userDetails.name,
@@ -168,7 +167,7 @@ export class HotelBookingComponent implements OnInit {
           this.showNotification('Error al obtener los datos del usuario', 'error');
         }
       });
-    }
+   // }
   }
 
   closeUserDetailsModal() {
@@ -243,22 +242,5 @@ export class HotelBookingComponent implements OnInit {
   clearUserData() {
     this.userDetailsForm.reset();
     this.editUserForm.reset();
-  }
-
-  logout() {
-    this.dataService.logout().subscribe({
-      next: response => {
-        console.log('Sesión cerrada correctamente', response);
-        this.showNotification('Cerrando sesión', 'success');
-        this.clearUserData();
-        setTimeout(() => {
-          this.router.navigate(['/home'], { replaceUrl: true });
-        }, 2000);
-      },
-      error: error => {
-        console.error('Error al cerrar sesión', error);
-        this.showNotification('Error al cerrar sesión', 'error');
-      }
-    });
   }
 }
