@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -22,8 +22,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-
+import { HotelsGalleryComponent } from './components/hotels-gallery/hotels-gallery.component';
+import { HotelDetailsComponent } from './components/hotel-details/hotel-details.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ReservationService } from './services/reservation.service';
+import { AuthService } from './services/auth.service';
+import { HotelService } from './services/hotel.service';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RegisterComponent,
     HotelBookingComponent,
     HomeComponent,
+    HotelsGalleryComponent,
+    HotelDetailsComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     FontAwesomeModule,
@@ -50,6 +58,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ToastrModule.forRoot()
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    HotelService,
+    ReservationService,
+    AuthService,
     provideHttpClient(withFetch()),
     provideAnimationsAsync() // RECORDAR ESTO: Agregar provideHttpClient() como proveedor
   ],

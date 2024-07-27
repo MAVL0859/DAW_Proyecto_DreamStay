@@ -67,42 +67,4 @@
   background-color: var(--text-light);
 }
 
-.card {
-  border-radius: 10px;
-}
-
-.card-img-top {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.card-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-}
-
-.card-text {
-  font-size: 0.875rem;
-}
-
-.list-group-item {
-  border: none;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.list-group-item + .list-group-item {
-  border-top: 1px solid #e9ecef;
-}
-
-.list-group-item h6 {
-  margin-bottom: 0.25rem;
-}
-
-.list-group-item p {
-  margin-bottom: 0;
-  color: #6c757d;
-}
-
-
 

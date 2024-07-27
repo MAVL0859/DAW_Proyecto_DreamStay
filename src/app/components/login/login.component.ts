@@ -50,7 +50,7 @@ export class LoginComponent {
             this.responseMessage = '';
             this.isSuccess = null;
             this.dialogRef.close();
-            this.router.navigate(['/hotel-booking'], {replaceUrl: true}); //ruta par redirigir luego del inicio de seción existoso
+            this.router.navigate(['/hotels-gallery'], {replaceUrl: true}); //ruta par redirigir luego del inicio de seción existoso
           }, 3000);
         },
         error: error => {

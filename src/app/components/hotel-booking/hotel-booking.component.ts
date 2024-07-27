@@ -42,11 +42,6 @@ export class HotelBookingComponent implements OnInit {
     if (userInfo && userInfo.name) {
       this.userName = userInfo.name;
     }
-
-    // Ocultar el mensaje después de 5 segundos
-    setTimeout(() => {
-      this.userName = '';
-    }, 5000);
   }
 
   openDeleteModal() {
@@ -243,4 +238,5 @@ export class HotelBookingComponent implements OnInit {
     this.userDetailsForm.reset();
     this.editUserForm.reset();
   }
+
 }

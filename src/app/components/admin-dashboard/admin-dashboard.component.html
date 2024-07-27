@@ -1,0 +1,85 @@
+<div class="container mt-5">
+  <h2>Administrar Hoteles</h2>
+  <form (submit)="onSubmit()" [formGroup]="hotelForm">
+    <div class="form-group">
+      <label for="name">Nombre del Hotel</label>
+      <input type="text" id="name" formControlName="name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="location">Ubicación</label>
+      <input type="text" id="location" formControlName="location" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="services">Servicios</label>
+      <input type="text" id="services" formControlName="services" class="form-control">
+    </div>
+    <div class="form-group mt-2">
+      <label for="image">Imagen: </label>
+      <input type="file" id="image" (change)="onFileChange($event)" class="form-control-file">
+    </div>
+    <button  type="submit" class="btn btn-primary mt-3">Agregar Hotel</button>
+  </form>
+
+
+ <!-- Lista de hoteles -->
+ <h3 class="mt-5">Lista de Hoteles</h3>
+ <table class="table table-striped">
+   <thead>
+     <tr>
+       <th>Nombre</th>
+       <th>Descripción</th>
+       <th>Ubicación</th>
+       <th>Servicios</th>
+       <th>Imagen</th>
+       <th>Acciones</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr *ngFor="let hotel of hotels">
+       <td>{{ hotel.name }}</td>
+       <td>{{ hotel.description }}</td>
+       <td>{{ hotel.location }}</td>
+       <td>{{ hotel.services }}</td>
+       <td>
+         <img [src]="hotel.imagePath" alt="{{ hotel.name }}" class="img-thumbnail" style="width: 100px;">
+       </td>
+       <td>
+         <button class="btn btn-warning btn-sm" (click)="editHotel(hotel)">Editar</button>
+         <button class="btn btn-danger btn-sm" (click)="deleteHotel(hotel.id)">Eliminar</button>
+       </td>
+     </tr>
+   </tbody>
+ </table>
+
+ <!-- Formulario de edición de hotel -->
+ <div *ngIf="isEditing" class="mt-5">
+   <h3>Editar Hotel</h3>
+   <form (submit)="onEditSubmit()" [formGroup]="editHotelForm">
+     <div class="form-group">
+       <label for="editName">Nombre del Hotel</label>
+       <input type="text" id="editName" formControlName="name" class="form-control">
+     </div>
+     <div class="form-group">
+       <label for="editDescription">Descripción</label>
+       <textarea id="editDescription" formControlName="description" class="form-control"></textarea>
+     </div>
+     <div class="form-group">
+       <label for="editLocation">Ubicación</label>
+       <input type="text" id="editLocation" formControlName="location" class="form-control">
+     </div>
+     <div class="form-group">
+       <label for="editServices">Servicios</label>
+       <input type="text" id="editServices" formControlName="services" class="form-control">
+     </div>
+     <div class="form-group">
+       <label for="editImage">Imagen</label>
+       <input type="file" id="editImage" (change)="onEditFileChange($event)" class="form-control-file">
+     </div>
+     <button type="submit" class="btn btn-success">Actualizar Hotel</button>
+   </form>
+ </div>
+</div>

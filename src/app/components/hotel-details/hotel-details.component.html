@@ -1,0 +1,84 @@
+<div *ngIf="hotel" class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="row g-0">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h1 class="card-title h3 mb-3">{{ hotel.name }}</h1>
+          <p class="card-text lead">{{ hotel.description }}</p>
+          <p class="card-text"><strong>Location:</strong> {{ hotel.location }}</p>
+          <p class="card-text"><strong>Services:</strong> {{ hotel.services }}</p>
+          <button class="btn btn-primary" (click)="toggleForm()">Procesar reserva</button>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center">
+        <img *ngIf="hotel.imagePath" [src]="hotel.imagePath" alt="{{ hotel.name }}" class="img-fluid rounded-start" style="max-width: 100%;">
+      </div>
+    </div>
+    <div class="card-footer text-muted text-right">
+      <small>Actualizado el {{ lastUpdated | date:'shortDate' }}</small>
+    </div>
+  </div>
+
+  <!-- Contenedor para la notificación -->
+<div *ngIf="notificationVisible" class="notification">
+  <p>{{ notificationMessage }}</p>
+</div>
+
+  <!-- Formulario flotante de reserva -->
+  <div *ngIf="showForm" class="floating-form">
+    <form (ngSubmit)="processBooking()" #bookingForm="ngForm">
+      <div class="form-group">
+        <label for="checkInDate">Fecha de entrada</label>
+        <input type="date" class="form-control" id="checkInDate" [(ngModel)]="checkInDate" name="checkInDate" [min]="minDate" required>
+      </div>
+      <div class="form-group">
+        <label for="checkOutDate">Fecha de salida</label>
+        <input type="date" class="form-control" id="checkOutDate" [(ngModel)]="checkOutDate" name="checkOutDate" [min]="checkInDate || minDate" required>
+      </div>
+      <div class="form-group">
+        <label for="roomType">Tipo de habitación</label>
+        <select class="form-control" id="roomType" [(ngModel)]="roomType" name="roomType" required>
+          <option *ngFor="let room of roomTypes" [value]="room">{{ room }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="numGuests">Número de personas</label>
+        <input type="number" class="form-control" id="numGuests" [(ngModel)]="numGuests" name="numGuests" required>
+      </div>
+      <div class="form-group">
+        <label for="userName">Nombre del usuario</label>
+        <input type="text" class="form-control" id="userName" [(ngModel)]="userName" name="userName" [value]="userName" disabled>
+      </div>
+      <button type="button" class="btn btn-success" (click)="togglePaymentForm()" [disabled]="!bookingForm.valid">Procesar pago</button>
+      <button type="button" class="btn btn-secondary" (click)="toggleForm()">Cancelar</button>
+      <button *ngIf="isPaymentProcessed" type="submit" class="btn btn-primary">Reservar</button>
+    </form>
+    <!-- Mostrar el estado del pago -->
+  <div *ngIf="paymentStatus" class="alert alert-info mt-3">{{ paymentStatus }}</div>
+  </div>
+
+  <!-- Formulario flotante de pago -->
+  <div *ngIf="showPaymentForm" class="floating-form">
+    <form (ngSubmit)="processPayment()" #paymentForm="ngForm">
+      <div class="form-group">
+        <label for="cardNumber">Número de tarjeta</label>
+        <input type="text" class="form-control" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber" pattern="\d*" (input)="validateCardNumber($event)" required>
+      </div>
+      <div class="form-group">
+        <label for="cardName">Nombre en la tarjeta</label>
+        <input type="text" class="form-control" id="cardName" [(ngModel)]="cardName" name="cardName" pattern="[a-zA-Z\s]*" (input)="validateCardName($event)" required>
+      </div>
+      <div class="form-group">
+        <label for="expiryDate">Fecha de vencimiento</label>
+        <input type="month" class="form-control" id="expiryDate" [(ngModel)]="expiryDate" name="expiryDate" placeholder="MM/AA" >
+      </div>
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" class="form-control" id="cvv" [(ngModel)]="cvv" name="cvv" pattern="\d*" (input)="validateCVV($event)" required>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!paymentForm.valid">Pagar</button>
+      <button type="button" class="btn btn-secondary" (click)="togglePaymentForm()">Cancelar</button>
+      <button *ngIf="isPaymentProcessed" type="button" class="btn btn-warning" (click)="updatePaymentMethod()">Actualizar método de pago</button>
+    </form>
+  </div>
+</div>

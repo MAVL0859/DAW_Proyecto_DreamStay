@@ -19,7 +19,7 @@ export class AuthService {
     return this.http.post<any>(this.loginURL, credentials).pipe(
       tap(response => {
         if (response.token) {
-          localStorage.setItem('token', response.token);
+          this.setToken(response.token);
         }
       })
     );
@@ -34,19 +34,19 @@ export class AuthService {
   }
 
   setToken(token: string): void {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem(this.tokenKey, token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem(this.tokenKey);
   }
 
   isAuthenticated(): boolean {
     const token = this.getToken();
-    return !!token;
+    return !!token && !this.jwtHelper.isTokenExpired(token);
   }
 
   logout(): void {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem(this.tokenKey);
   }
 }

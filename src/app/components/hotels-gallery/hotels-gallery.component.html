@@ -1,0 +1,99 @@
+<body>
+  <!--<div class="container">
+     Mensaje de bienvenida
+    <div *ngIf="userName" class="alert alert-success mt-3" role="alert">
+      <p>¡Hola<strong style="color: #304062;"> {{ userName }}</strong>! Bienvenido a DreamStay, realiza tus reservas en espectaculares hoteles</p>
+    </div>
+
+     Contenedor para el componente de reserva de hoteles
+    <div class="container mt-4">
+       Encabezado del contenedor
+      <h1 class="mb-4 text-center">Visita las maravillosas ciudades que tiene el Ecuador</h1>
+      <div class="row mt-4">
+        <div class="col-md-4" *ngFor="let hotel of hotels">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top card-img-top-custom" [src]="hotel.image" alt="Imagen del hotel">
+            <div class="card-body">
+              <h5 class="card-title">{{ hotel.name }}</h5>
+              <p class="card-text">{{ hotel.description }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="viewHotel(hotel.route)">Ver
+                    más</button>
+                </div>
+                <small class="text-muted">{{ hotel.location }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="container mt-4">
+    <div *ngIf="userName" class="alert alert-success mt-3" role="alert">
+      <p>¡Hola <strong style="color: #304062;">{{ userName }}</strong>! Bienvenido a DreamStay, realiza tus reservas en espectaculares hoteles</p>
+    </div>
+
+    <h1 class="mb-4 text-center">Reserva en los mejores hoteles que tiene el Ecuador</h1>
+    <div class="row mt-4">
+      <div class="col-md-4" *ngFor="let hotel of hotels">
+        <div class="card mb-4 shadow-sm">
+          <img class="card-img-top card-img-top-custom" [src]="hotel.imagePath" alt="{{ hotel.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ hotel.name }}</h5>
+            <p class="card-text">{{ hotel.description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button (click)="viewHotel(hotel.id)" class="btn btn-primary">
+                  Ver detalles
+                </button>
+              </div>
+              <small class="text-muted">{{ hotel.location }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <h3>DreamStay</h3>
+        <p>
+          DreamStay es un sitio web de reservas de hoteles de primera categoría que ofrece una forma sencilla y
+          conveniente de encontrar y reservar alojamientos en todo el mundo.
+        </p>
+        <p>
+          Con una interfaz fácil de usar y una amplia selección de hoteles, DreamStay tiene como objetivo proporcionar
+          una experiencia sin estrés para los viajeros que buscan la estadía perfecta.
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4>Empresa</h4>
+        <p>Sobre nosotros</p>
+        <p>Nuestro equipo</p>
+        <p>Blog</p>
+        <p>Reservar</p>
+        <p>Contáctanos</p>
+      </div>
+      <div class="footer__col">
+        <h4>Legal</h4>
+        <p>Preguntas frecuentes</p>
+        <p>Términos y condiciones</p>
+        <p>Política de privacidad</p>
+      </div>
+      <div class="footer__col">
+        <h4>Recursos</h4>
+        <p>Redes sociales</p>
+        <p>Centro de ayuda</p>
+        <p>Asociaciones</p>
+      </div>
+    </div>
+    <div class="footer__bar">
+      Derechos de autor © 2024 Desarrollo De Aplicaciones Web. Todos los derechos reservados.
+    </div>
+  </footer>
+</body>
